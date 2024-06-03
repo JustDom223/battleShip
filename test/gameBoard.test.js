@@ -5,6 +5,9 @@ import { Ship } from '../src/shipFactory';
 const gameBoard = new GameBoard();
 gameBoard.createGridNodes(10, 10);
 gameBoard.placeShip('4,1', new Ship(4));
+const connections = ['-1,0', '1,0', '0,-1', '0,1']
+const connectionsNested = [[-1,0], [1,0], [0,-1], [0,1]]
+gameBoard.assignEdges(connectionsNested)
 
 test('Test game board grid created the correct size based on the inputs', () => {
     expect(gameBoard.gridNodes.length).toBe(100);
@@ -44,7 +47,35 @@ test('Test that the game board has a sunk ship assigned to a location verifying 
         ship: { size: 4, health: 0, isSunk: true },
     });
 });
-test('Test that if a ship is assigned to a location, the edges are linked to it', () => {
+test('Test that each nodes edges are assigned as the 4 nodes next to it', () => {
     const targetEdges = gameBoard.edges.get('4,1');
-    expect(targetEdges).toEqual(['4,2', '4,3']);
+    expect(targetEdges).toEqual(['3,1', '5,1', '4,0', '4,2']);
+});
+
+test('Test that each nodes edges dont go below the node array into minus', () => {
+    const targetEdges = gameBoard.edges.get('0,0');
+    expect(targetEdges).toEqual(['1,0', '0,1']);
+});
+test('Test that each nodes edges dont go above the node array past 9', () => {
+    const targetEdges = gameBoard.edges.get('9,9');
+    expect(targetEdges).toEqual(['8,9', '9,8']);
+});
+
+const frigate1 = new Ship(2)
+
+test('Test that the game board has a ship assigned to 2 locations when a ship with 2 health ', () => {
+    gameBoard.placeShip('5,5', frigate1);
+    // gameBoard.placeShip('5,6', frigate1);
+    const targetNode = gameBoard.gridNodes.find((node) => node.id === '5,5');
+    expect(targetNode).toEqual({
+        id: '5,5',
+        position: [5, 5],
+        ship: { size: 2, health: 2, isSunk: false },
+    });
+    const targetNode2 = gameBoard.gridNodes.find((node) => node.id === '5,6');
+    expect(targetNode2).toEqual({
+        id: '5,6',
+        position: [5, 6],
+        ship: { size: 2, health: 2, isSunk: false },
+    });
 });

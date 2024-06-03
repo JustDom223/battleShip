@@ -30,7 +30,7 @@ export class GameBoard {
     addEdge(sourceId, targetId) {
         if (!this.edges.has(sourceId)) {
             // If the sourceId doesnt exist create an entry for it
-            edges.set(sourceId, []);
+            this.edges.set(sourceId, []);
         }
 
         // check if targeId is already in the list of edges for sourceId
@@ -45,6 +45,24 @@ export class GameBoard {
     placeShip(sourceId, ship) {
         const targetNode = this.gridNodes.find((node) => node.id === sourceId);
         targetNode.ship = ship;
+        if (ship.length > 1){
+            for(let i = 0 ; i < ship.size; i++){
+                
+            }
+        }
         return;
+    }
+
+    assignEdges(links){
+        this.gridNodes.forEach(node => {
+            for(let i = 0; i < links.length; i++){
+                let p1 = node.position[0] + links[i][0]
+                let p2 = node.position[1] + links[i][1]
+                let newEdge = `${p1},${p2}`
+                if(p1 >= 0 && p1 <= 9 && p2 >= 0 && p2 <= 9){
+                    this.addEdge(node.id, newEdge)
+                }
+            }
+        });
     }
 }
