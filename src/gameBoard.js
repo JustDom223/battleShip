@@ -58,7 +58,7 @@ export class GameBoard {
                 console.error('Target node not found for source ID:', sourceId);
                 return false;
             }
-            this.placeShip(targetsEdges[3], ship, --size);
+            this.placeShip(targetsEdges[0], ship, --size);
             targetNode.ship = ship;
             return true;
         }
