@@ -42,25 +42,36 @@ export class GameBoard {
         return;
     }
 
-    placeShip(sourceId, ship) {
-        const targetNode = this.gridNodes.find((node) => node.id === sourceId);
-        targetNode.ship = ship;
-        if (ship.length > 1){
-            for(let i = 0 ; i < ship.size; i++){
-                
+    placeShip(sourceId, ship, size = ship.size) {
+        if (size === 0) {
+            return true;
+        } else {
+            const targetsEdges = this.edges.get(sourceId);
+            if (!targetsEdges || targetsEdges.length === 0) {
+                console.error('No edges found for source ID:', sourceId);
+                return false;
             }
+            const targetNode = this.gridNodes.find(
+                (node) => node.id === sourceId,
+            );
+            if (!targetNode) {
+                console.error('Target node not found for source ID:', sourceId);
+                return false;
+            }
+            this.placeShip(targetsEdges[3], ship, --size);
+            targetNode.ship = ship;
+            return true;
         }
-        return;
     }
 
-    assignEdges(links){
-        this.gridNodes.forEach(node => {
-            for(let i = 0; i < links.length; i++){
-                let p1 = node.position[0] + links[i][0]
-                let p2 = node.position[1] + links[i][1]
-                let newEdge = `${p1},${p2}`
-                if(p1 >= 0 && p1 <= 9 && p2 >= 0 && p2 <= 9){
-                    this.addEdge(node.id, newEdge)
+    assignEdges(links) {
+        this.gridNodes.forEach((node) => {
+            for (let i = 0; i < links.length; i++) {
+                let p1 = node.position[0] + links[i][0];
+                let p2 = node.position[1] + links[i][1];
+                let newEdge = `${p1},${p2}`;
+                if (p1 >= 0 && p1 <= 9 && p2 >= 0 && p2 <= 9) {
+                    this.addEdge(node.id, newEdge);
                 }
             }
         });
