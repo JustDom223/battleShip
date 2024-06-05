@@ -1,4 +1,4 @@
-import { describe, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import { GameBoard } from '../src/gameBoard';
 import { Ship } from '../src/shipFactory';
 
@@ -49,6 +49,10 @@ describe('GameBoard', () => {
             const targetEdges = gameBoard.edges.get('4,1');
             expect(targetEdges).toEqual(['4,2', '4,0', '3,1', '5,1']);
         });
+        test("should assign each node's edges as the 4 nodes next to it", () => {
+            const targetEdges = gameBoard.edges.get('6,5');
+            expect(targetEdges).toEqual(['6,6', '6,4', '5,5', '7,5']);
+        });
 
         test("Test that each nodes edges don't go below the node array into minus", () => {
             const targetEdges = gameBoard.edges.get('0,0');
@@ -79,10 +83,16 @@ describe('GameBoard', () => {
         });
 
         test.each([['5,5', '5,6', '5,7']])(
-            'Ship with 3 health is correctly placed across nodes',
+            'Ship with 3 health is correctly placed across nodes vertically',
             (node1, node2, node3) => {
                 const frigate1 = new Ship(3);
-                gameBoard.placeShip(node1, frigate1, frigate1.size);
+                const horizontally = false;
+                gameBoard.placeShip(
+                    node1,
+                    frigate1,
+                    frigate1.size,
+                    horizontally,
+                );
 
                 const targetNode1 = gameBoard.gridNodes.find(
                     (node) => node.id === node1,
@@ -92,7 +102,6 @@ describe('GameBoard', () => {
                     position: [5, 5],
                     ship: { size: 3, health: 3, isSunk: false },
                 });
-
                 const targetNode2 = gameBoard.gridNodes.find(
                     (node) => node.id === node2,
                 );
@@ -101,7 +110,6 @@ describe('GameBoard', () => {
                     position: [5, 6],
                     ship: { size: 3, health: 3, isSunk: false },
                 });
-
                 const targetNode3 = gameBoard.gridNodes.find(
                     (node) => node.id === node3,
                 );
@@ -112,17 +120,57 @@ describe('GameBoard', () => {
                 });
             },
         );
+        test.each([['5,5', '6,5', '7,5']])(
+            'Ship with 3 health is correctly placed across nodes horizontally',
+            (node1, node2, node3) => {
+                const frigate1 = new Ship(3);
+                const horizontally = true;
+                gameBoard.placeShip(
+                    node1,
+                    frigate1,
+                    frigate1.size,
+                    horizontally,
+                );
+
+                const targetNode1 = gameBoard.gridNodes.find(
+                    (node) => node.id === node1,
+                );
+                expect(targetNode1).toEqual({
+                    id: node1,
+                    position: [5, 5],
+                    ship: { size: 3, health: 3, isSunk: false },
+                });
+                const targetNode2 = gameBoard.gridNodes.find(
+                    (node) => node.id === node2,
+                );
+                expect(targetNode2).toEqual({
+                    id: node2,
+                    position: [6, 5],
+                    ship: { size: 3, health: 3, isSunk: false },
+                });
+                const targetNode3 = gameBoard.gridNodes.find(
+                    (node) => node.id === node3,
+                );
+                // console.log(gameBoard.getNodes());
+                expect(targetNode3).toEqual({
+                    id: node3,
+                    position: [7, 5],
+                    ship: { size: 3, health: 3, isSunk: false },
+                });
+            },
+        );
     });
 
     describe('Test an assigned ship can be sunk', () => {
         test.each([['4,1', '4,2', '4,3', '4,4']])(
             'Test that the game board has a sunk ship assigned to a location verifying change in ship state',
             (node1, node2, node3, node4) => {
+                const battleShip = new Ship(4);
+
                 const targetNode1 = gameBoard.gridNodes.find(
                     (node) => node.id === node1,
                 );
-                const tinny = new Ship(4);
-                gameBoard.placeShip('4,1', tinny, tinny.size);
+                gameBoard.placeShip('4,1', battleShip, battleShip.size);
                 targetNode1.ship.hit();
                 expect(targetNode1).toEqual({
                     id: node1,
@@ -139,7 +187,6 @@ describe('GameBoard', () => {
                     position: [4, 2],
                     ship: { size: 4, health: 2, isSunk: false },
                 });
-
                 const targetNode3 = gameBoard.gridNodes.find(
                     (node) => node.id === node3,
                 );

@@ -42,7 +42,7 @@ export class GameBoard {
         return;
     }
 
-    placeShip(sourceId, ship, size = ship.size) {
+    placeShip(sourceId, ship, size = ship.size, direction) {
         if (size === 0) {
             return true;
         } else {
@@ -58,7 +58,11 @@ export class GameBoard {
                 console.error('Target node not found for source ID:', sourceId);
                 return false;
             }
-            this.placeShip(targetsEdges[0], ship, --size);
+            if (direction) {
+                this.placeShip(targetsEdges[3], ship, --size, direction);
+            } else {
+                this.placeShip(targetsEdges[0], ship, --size, direction);
+            }
             targetNode.ship = ship;
             return true;
         }
