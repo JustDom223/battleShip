@@ -10,34 +10,28 @@ const connectionsNested = [
 ];
 describe('GameBoard', () => {
     let gameBoard;
-
     beforeEach(() => {
         gameBoard = new GameBoard();
         gameBoard.createGridNodes(10, 10);
         gameBoard.assignEdges(connectionsNested);
     });
-
     describe('Grid Creation', () => {
         test('should create the correct size based on the inputs', () => {
             expect(gameBoard.gridNodes.length).toBe(100);
         });
-
         test('should correctly position grid nodes', () => {
             expect(gameBoard.gridNodes[11]).toEqual({
                 id: '1,1',
                 position: [1, 1],
             });
         });
-
         test('Test node id is a string', () => {
             expect(gameBoard.gridNodes[11].id).toEqual('1,1');
         });
-
         test('Test that getNodes function returns an Array', () => {
             const result = gameBoard.getNodes();
             expect(result instanceof Array).toBe(true);
         });
-
         test('Test that getNodes function returns a Map', () => {
             const result = gameBoard.getEdges();
             expect(result instanceof Map).toBe(true);
@@ -47,25 +41,43 @@ describe('GameBoard', () => {
     describe('Edges Assignment', () => {
         test("should assign each node's edges as the 4 nodes next to it", () => {
             const targetEdges = gameBoard.edges.get('4,1');
-            expect(targetEdges).toEqual(['4,2', '4,0', '3,1', '5,1']);
+            expect(targetEdges).toEqual({
+                up: '4,2',
+                down: '4,0',
+                left: '3,1',
+                right: '5,1',
+            });
         });
         test("should assign each node's edges as the 4 nodes next to it", () => {
             const targetEdges = gameBoard.edges.get('6,5');
-            expect(targetEdges).toEqual(['6,6', '6,4', '5,5', '7,5']);
+            expect(targetEdges).toEqual({
+                up: '6,6',
+                down: '6,4',
+                left: '5,5',
+                right: '7,5',
+            });
         });
-
         test("Test that each nodes edges don't go below the node array into minus", () => {
             const targetEdges = gameBoard.edges.get('0,0');
-            expect(targetEdges).toEqual(['0,1', '1,0']);
+            expect(targetEdges).toEqual({
+                up: '0,1',
+                down: false,
+                left: false,
+                right: '1,0',
+            });
         });
         test('Test that each nodes edges dont go above the node array past 9', () => {
             const targetEdges = gameBoard.edges.get('9,9');
-            expect(targetEdges).toEqual(['9,8', '8,9']);
+            expect(targetEdges).toEqual({
+                up: false,
+                down: '9,8',
+                left: '8,9',
+                right: false,
+            });
         });
-
         test('Test that a single edge is a string', () => {
             const targetEdges = gameBoard.edges.get('9,9');
-            expect(targetEdges[0]).toEqual('9,8');
+            expect(targetEdges.down).toEqual('9,8');
         });
     });
 
@@ -81,7 +93,6 @@ describe('GameBoard', () => {
                 ship: { size: 2, health: 2, isSunk: false },
             });
         });
-
         test.each([['5,5', '5,6', '5,7']])(
             'Ship with 3 health is correctly placed across nodes vertically',
             (node1, node2, node3) => {
@@ -131,7 +142,6 @@ describe('GameBoard', () => {
                     frigate1.size,
                     horizontally,
                 );
-
                 const targetNode1 = gameBoard.gridNodes.find(
                     (node) => node.id === node1,
                 );
@@ -151,7 +161,6 @@ describe('GameBoard', () => {
                 const targetNode3 = gameBoard.gridNodes.find(
                     (node) => node.id === node3,
                 );
-                // console.log(gameBoard.getNodes());
                 expect(targetNode3).toEqual({
                     id: node3,
                     position: [7, 5],
@@ -160,13 +169,11 @@ describe('GameBoard', () => {
             },
         );
     });
-
     describe('Test an assigned ship can be sunk', () => {
         test.each([['4,1', '4,2', '4,3', '4,4']])(
             'Test that the game board has a sunk ship assigned to a location verifying change in ship state',
             (node1, node2, node3, node4) => {
                 const battleShip = new Ship(4);
-
                 const targetNode1 = gameBoard.gridNodes.find(
                     (node) => node.id === node1,
                 );
@@ -177,7 +184,6 @@ describe('GameBoard', () => {
                     position: [4, 1],
                     ship: { size: 4, health: 3, isSunk: false },
                 });
-
                 const targetNode2 = gameBoard.gridNodes.find(
                     (node) => node.id === node2,
                 );
