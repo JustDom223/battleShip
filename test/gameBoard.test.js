@@ -131,6 +131,44 @@ describe('GameBoard', () => {
                 });
             },
         );
+        test.each([['9,9', '9,8', '9,7']])(
+            'Ship with 3 health is correctly placed if it is placed on the edge and goes over',
+            (node1, node2, node3) => {
+                const frigate1 = new Ship(3);
+                const horizontally = false;
+                gameBoard.placeShip(
+                    node1,
+                    frigate1,
+                    frigate1.size,
+                    horizontally,
+                );
+
+                const targetNode1 = gameBoard.gridNodes.find(
+                    (node) => node.id === node1,
+                );
+                expect(targetNode1).toEqual({
+                    id: node1,
+                    position: [9, 9],
+                    ship: { size: 3, health: 3, isSunk: false },
+                });
+                const targetNode2 = gameBoard.gridNodes.find(
+                    (node) => node.id === node2,
+                );
+                expect(targetNode2).toEqual({
+                    id: node2,
+                    position: [9, 8],
+                    ship: { size: 3, health: 3, isSunk: false },
+                });
+                const targetNode3 = gameBoard.gridNodes.find(
+                    (node) => node.id === node3,
+                );
+                expect(targetNode3).toEqual({
+                    id: node3,
+                    position: [9, 7],
+                    ship: { size: 3, health: 3, isSunk: false },
+                });
+            },
+        );
         test.each([['5,5', '6,5', '7,5']])(
             'Ship with 3 health is correctly placed across nodes horizontally',
             (node1, node2, node3) => {
