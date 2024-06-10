@@ -12,7 +12,6 @@ export class GameBoard {
             right: false,
         });
     }
-
     createGridNodes(rows, col) {
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < col; j++) {
@@ -20,11 +19,9 @@ export class GameBoard {
             }
         }
     }
-
     getNodes() {
         return this.gridNodes;
     }
-
     getEdges() {
         return this.edges;
     }
@@ -44,7 +41,6 @@ export class GameBoard {
         let nodeEdges = this.edges.get(nodeId);
         nodeEdges[direction] = targetId;
     }
-
     assignEdges(links) {
         this.gridNodes.forEach((node) => {
             const nodeId = node.id;
@@ -61,7 +57,6 @@ export class GameBoard {
             });
         });
     }
-
     getDirection(dx, dy) {
         if (dx === 0 && dy === 1) return 'up';
         if (dx === 0 && dy === -1) return 'down';
@@ -69,30 +64,41 @@ export class GameBoard {
         if (dx === 1 && dy === 0) return 'right';
         return null; // or throw an error if the direction is invalid
     }
+    placeShip(sourceId, ship, direction = 'up') {
+        // check if the ship is fully placed
+        if (ship.coordinates.size >= ship.size) return true;
 
-    placeShip(sourceId, ship, size = ship.size, direction) {
-        if (size === 0) {
-            return true;
+        const targetNode = this.gridNodes.find((node) => node.id === sourceId);
+
+        // asign the ship to the current node and add the coordinate
+        targetNode.ship = ship;
+        ship.addCoordinate(sourceId);
+
+        // Get the next node ID based on the direction
+        const targetsEdges = this.edges.get(sourceId);
+        const nextNodeId = targetsEdges[direction];
+
+        // Check if the edge in the current direction is valid
+        if (targetsEdges[direction] !== false) {
+            return this.placeShip(nextNodeId, ship, direction);
         } else {
-            const targetsEdges = this.edges.get(sourceId);
-            if (!targetsEdges || targetsEdges.length === 0) {
-                console.error('No edges found for source ID:', sourceId);
-                return false;
+            const oppositeDirection = this.getOppositeDirection(direction);
+            const oppositeNodeId = targetsEdges[oppositeDirection];
+            if (oppositeNodeId) {
+                return this.placeShip(oppositeNodeId, ship, oppositeDirection);
             }
-            const targetNode = this.gridNodes.find(
-                (node) => node.id === sourceId,
-            );
-            if (!targetNode) {
-                console.error('Target node not found for source ID:', sourceId);
-                return false;
-            }
-            if (direction) {
-                this.placeShip(targetsEdges.right, ship, --size, direction);
-            } else {
-                this.placeShip(targetsEdges.up, ship, --size, direction);
-            }
-            targetNode.ship = ship;
-            return true;
         }
+
+        // If no valid move is possible, return false
+        return false;
+    }
+    getOppositeDirection(direction) {
+        const opposites = {
+            up: 'down',
+            down: 'up',
+            left: 'right',
+            right: 'left',
+        };
+        return opposites[direction];
     }
 }
