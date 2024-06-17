@@ -92,6 +92,29 @@ export class GameBoard {
         // If no valid move is possible, return false
         return false;
     }
+    checkCoordinate(sourceId) {
+        const targetNode = this.gridNodes.find((node) => node.id === sourceId);
+        if (targetNode.ship) return true;
+        else return false;
+    }
+
+    checkCoordinatesForPlacement(sourceId, shipSize, direction) {
+        if (shipSize <= 0) return true; // Base case: all coordinates checked
+        const targetNode = this.gridNodes.find((node) => node.id === sourceId);
+        if (targetNode.ship) return false; // Ship found, coordinate not clear
+
+        const targetsEdges = this.edges.get(sourceId);
+        const nextNodeId = targetsEdges[direction];
+        if (!nextNodeId) return false; // Edge of board reached, no more nodes to check
+
+        // Recursive call to check the next coordinate
+        return this.checkCoordinatesForPlacement(
+            nextNodeId,
+            shipSize - 1,
+            direction,
+        );
+    }
+
     getOppositeDirection(direction) {
         const opposites = {
             up: 'down',
