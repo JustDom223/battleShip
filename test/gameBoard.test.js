@@ -673,6 +673,26 @@ describe('GameBoard', () => {
                 ),
             ).toEqual(true);
         });
+        test('Check that checkAndPlace places a ship when there is a free spot', () => {
+            const frig1 = new Ship(2);
+            const direction = 'up';
+            expect(
+                gameBoard.checkAndPlace(
+                    '5,5',
+                    frig1,
+                    direction,
+                ),
+            ).toEqual(true);
+        });
+        test('Check that checkAndPlace throws an error if there is already a ship in position', () => {
+            const frig1 = new Ship(2);
+            const frig2 = new Ship(2);
+            const direction = 'up';
+            gameBoard.placeShip('4,5', frig1, 'right');
+            expect(() => {
+              gameBoard.checkAndPlace('5,5', frig2, direction);
+            }).toThrowError('Sorry the location already has a ship assigned');
+          });
     });
     // Ship assignment tests
     describe('Test that an assigned ship can be sunk', () => {
