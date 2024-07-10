@@ -4,7 +4,7 @@ export class GameBoard {
         this.edges = new Map();
     }
     addNode(id, position) {
-        this.gridNodes.push({ id, position });
+        this.gridNodes.push({ id, position, targeted: false });
         this.edges.set(id, {
             up: false,
             down: false,
@@ -146,4 +146,30 @@ export class GameBoard {
         };
         return opposites[direction];
     }
+    //GPT Created these when i asked for an example for something. Saving them if they need to be implemented
+    //I can already see an issue where it is changing ship.isSunk for no reason
+
+    // targetNode(id) {
+    //     const targetNode = this.gridNodes.find((node) => node.id === id);
+    //     if (targetNode && !targetNode.targeted) {
+    //         targetNode.targeted = true;
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+    // attack(targetId) {
+    //     const node = this.gridNodes.find(node => node.id === targetId);
+    //     if (node && !node.targeted) {
+    //         node.targeted = true;
+    //         if (node.ship) {
+    //             node.ship.hit();
+    //             return { hit: true, shipSunk: node.ship.isSunk };
+    //         } else {
+    //             return { hit: false };
+    //         }
+    //     } else {
+    //         throw new Error('This node has already been targeted.');
+    //     }
+    // }
 }

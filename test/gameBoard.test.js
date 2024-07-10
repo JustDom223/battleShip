@@ -23,6 +23,7 @@ describe('GameBoard', () => {
             expect(gameBoard.gridNodes[11]).toEqual({
                 id: '1,1',
                 position: [1, 1],
+                targeted: false,
             });
         });
         test('Test node id is a string', () => {
@@ -97,6 +98,7 @@ describe('GameBoard', () => {
                     isSunk: false,
                     coordinates: expect.any(Set),
                 },
+                targeted: false,
             });
             expect(Array.from(targetNode.ship.coordinates)).toEqual([
                 '1,1',
@@ -124,6 +126,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode1.ship.coordinates)).toEqual([
                     '5,5',
@@ -143,6 +146,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode2.ship.coordinates)).toEqual([
                     '5,5',
@@ -162,6 +166,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode3.ship.coordinates)).toEqual([
                     '5,5',
@@ -190,6 +195,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode1.ship.coordinates)).toEqual([
                     '5,5',
@@ -209,6 +215,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode2.ship.coordinates)).toEqual([
                     '5,5',
@@ -228,6 +235,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode3.ship.coordinates)).toEqual([
                     '5,5',
@@ -257,6 +265,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode1.ship.coordinates)).toEqual([
                     '9,9',
@@ -276,6 +285,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode2.ship.coordinates)).toEqual([
                     '9,9',
@@ -295,6 +305,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode3.ship.coordinates)).toEqual([
                     '9,9',
@@ -324,6 +335,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode1.ship.coordinates)).toEqual([
                     '9,9',
@@ -343,6 +355,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode2.ship.coordinates)).toEqual([
                     '9,9',
@@ -362,6 +375,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode3.ship.coordinates)).toEqual([
                     '9,9',
@@ -391,6 +405,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode1.ship.coordinates)).toEqual([
                     '9,8',
@@ -413,6 +428,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode2.ship.coordinates)).toEqual([
                     '9,8',
@@ -435,6 +451,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode3.ship.coordinates)).toEqual([
                     '9,8',
@@ -457,6 +474,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode4.ship.coordinates)).toEqual([
                     '9,8',
@@ -479,6 +497,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
 
                 expect(Array.from(targetNode5.ship.coordinates)).toEqual([
@@ -502,6 +521,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode6.ship.coordinates)).toEqual([
                     '9,8',
@@ -534,6 +554,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode1.ship.coordinates)).toEqual([
                     '9,8',
@@ -556,6 +577,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode2.ship.coordinates)).toEqual([
                     '9,8',
@@ -578,6 +600,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode3.ship.coordinates)).toEqual([
                     '9,8',
@@ -600,6 +623,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode4.ship.coordinates)).toEqual([
                     '9,8',
@@ -622,6 +646,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
 
                 expect(Array.from(targetNode5.ship.coordinates)).toEqual([
@@ -645,6 +670,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode6.ship.coordinates)).toEqual([
                     '9,8',
@@ -737,6 +763,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 const targetNode2 = gameBoard.gridNodes.find(
                     (node) => node.id === node2,
@@ -752,6 +779,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 const targetNode3 = gameBoard.gridNodes.find(
                     (node) => node.id === node3,
@@ -767,6 +795,7 @@ describe('GameBoard', () => {
                         isSunk: false,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 const targetNode4 = gameBoard.gridNodes.find(
                     (node) => node.id === node4,
@@ -782,6 +811,7 @@ describe('GameBoard', () => {
                         isSunk: true,
                         coordinates: expect.any(Set),
                     },
+                    targeted: false,
                 });
                 expect(Array.from(targetNode4.ship.coordinates)).toEqual([
                     '4,1',
