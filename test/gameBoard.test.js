@@ -83,7 +83,7 @@ describe('GameBoard', () => {
 
     describe('Ship assignment to nodes', () => {
         test('Test that the game board has a ship assigned to a location', () => {
-            gameBoard.placeShip('1,1', new Ship(2));
+            gameBoard.placeShip('1,1', new Ship('Destroyer', 2));
             const targetNode = gameBoard.gridNodes.find(
                 (node) => node.id === '1,1',
             );
@@ -91,6 +91,7 @@ describe('GameBoard', () => {
                 id: '1,1',
                 position: [1, 1],
                 ship: {
+                    type: 'Destroyer',
                     size: 2,
                     health: 2,
                     isSunk: false,
@@ -106,7 +107,7 @@ describe('GameBoard', () => {
         test.each([['5,5', '5,6', '5,7']])(
             'Ship with 3 health is correctly placed across nodes vertically',
             (node1, node2, node3) => {
-                const frigate1 = new Ship(3);
+                const frigate1 = new Ship('Cruiser', 3);
                 const direction = 'up';
                 gameBoard.placeShip(node1, frigate1, direction);
 
@@ -117,6 +118,7 @@ describe('GameBoard', () => {
                     id: node1,
                     position: [5, 5],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -135,6 +137,7 @@ describe('GameBoard', () => {
                     id: node2,
                     position: [5, 6],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -153,6 +156,7 @@ describe('GameBoard', () => {
                     id: node3,
                     position: [5, 7],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -170,7 +174,7 @@ describe('GameBoard', () => {
         test.each([['5,5', '6,5', '7,5']])(
             'Ship with 3 health is correctly placed across nodes horizontally',
             (node1, node2, node3) => {
-                const frigate1 = new Ship(3);
+                const frigate1 = new Ship('Cruiser', 3);
                 const direction = 'right';
                 gameBoard.placeShip(node1, frigate1, direction, node1);
                 const targetNode1 = gameBoard.gridNodes.find(
@@ -180,6 +184,7 @@ describe('GameBoard', () => {
                     id: node1,
                     position: [5, 5],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -198,6 +203,7 @@ describe('GameBoard', () => {
                     id: node2,
                     position: [6, 5],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -216,6 +222,7 @@ describe('GameBoard', () => {
                     id: node3,
                     position: [7, 5],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -233,7 +240,7 @@ describe('GameBoard', () => {
         test.each([['9,9', '9,8', '9,7']])(
             'Ship with 3 health is correctly placed if it is placed on the edge and goes over',
             (node1, node2, node3) => {
-                const frigate1 = new Ship(3);
+                const frigate1 = new Ship('Cruiser', 3);
                 const direction = 'up';
                 gameBoard.placeShip(node1, frigate1, direction);
 
@@ -244,6 +251,7 @@ describe('GameBoard', () => {
                     id: node1,
                     position: [9, 9],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -262,6 +270,7 @@ describe('GameBoard', () => {
                     id: node2,
                     position: [9, 8],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -280,6 +289,7 @@ describe('GameBoard', () => {
                     id: node3,
                     position: [9, 7],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -297,7 +307,7 @@ describe('GameBoard', () => {
         test.each([['9,9', '8,9', '7,9']])(
             'Ship with 3 health is correctly placed if it is placed on the edge and goes over',
             (node1, node2, node3) => {
-                const frigate1 = new Ship(3);
+                const frigate1 = new Ship('Cruiser', 3);
                 const direction = 'right';
                 gameBoard.placeShip(node1, frigate1, direction);
 
@@ -308,6 +318,7 @@ describe('GameBoard', () => {
                     id: node1,
                     position: [9, 9],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -326,6 +337,7 @@ describe('GameBoard', () => {
                     id: node2,
                     position: [8, 9],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -344,6 +356,7 @@ describe('GameBoard', () => {
                     id: node3,
                     position: [7, 9],
                     ship: {
+                        type: 'Cruiser',
                         size: 3,
                         health: 3,
                         isSunk: false,
@@ -361,7 +374,7 @@ describe('GameBoard', () => {
         test.each([['9,8', '9,9', '9,7', '9,6', '9,5', '9,4']])(
             'Ship with 6 health is correctly placed if it is placed NEAR the edge and goes over and has to double back',
             (node1, node2, node3, node4, node5, node6) => {
-                const frigate1 = new Ship(6);
+                const frigate1 = new Ship('Carrier', 6);
                 const direction = 'up';
                 gameBoard.placeShip(node1, frigate1, direction);
 
@@ -372,6 +385,7 @@ describe('GameBoard', () => {
                     id: node1,
                     position: [9, 8],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -393,6 +407,7 @@ describe('GameBoard', () => {
                     id: node2,
                     position: [9, 9],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -414,6 +429,7 @@ describe('GameBoard', () => {
                     id: node3,
                     position: [9, 7],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -435,6 +451,7 @@ describe('GameBoard', () => {
                     id: node4,
                     position: [9, 6],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -456,6 +473,7 @@ describe('GameBoard', () => {
                     id: node5,
                     position: [9, 5],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -478,6 +496,7 @@ describe('GameBoard', () => {
                     id: node6,
                     position: [9, 4],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -498,7 +517,7 @@ describe('GameBoard', () => {
         test.each([['9,8', '8,8', '7,8', '6,8', '5,8', '4,8']])(
             'Ship with 6 health is correctly placed if it is placed NEAR the edge and goes over and has to double back',
             (node1, node2, node3, node4, node5, node6) => {
-                const frigate1 = new Ship(6);
+                const frigate1 = new Ship('Carrier', 6);
                 const direction = 'right';
                 gameBoard.placeShip(node1, frigate1, direction);
 
@@ -509,6 +528,7 @@ describe('GameBoard', () => {
                     id: node1,
                     position: [9, 8],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -530,6 +550,7 @@ describe('GameBoard', () => {
                     id: node2,
                     position: [8, 8],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -551,6 +572,7 @@ describe('GameBoard', () => {
                     id: node3,
                     position: [7, 8],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -572,6 +594,7 @@ describe('GameBoard', () => {
                     id: node4,
                     position: [6, 8],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -593,6 +616,7 @@ describe('GameBoard', () => {
                     id: node5,
                     position: [5, 8],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -615,6 +639,7 @@ describe('GameBoard', () => {
                     id: node6,
                     position: [4, 8],
                     ship: {
+                        type: 'Carrier',
                         size: 6,
                         health: 6,
                         isSunk: false,
@@ -637,12 +662,12 @@ describe('GameBoard', () => {
             expect(gameBoard.checkCoordinate('5,5')).toEqual(false);
         });
         test('Check coordinate does have a ship assigned', () => {
-            const frig1 = new Ship(2);
+            const frig1 = new Ship('Destroyer', 2);
             gameBoard.placeShip('5,5', frig1);
             expect(gameBoard.checkCoordinate('5,5')).toEqual(true);
         });
         test('Check coordinate does have a ship assigned', () => {
-            const frig1 = new Ship(2);
+            const frig1 = new Ship('Destroyer', 2);
             gameBoard.placeShip('5,5', frig1);
             expect(gameBoard.checkCoordinate('5,5')).toEqual(true);
             expect(gameBoard.checkCoordinate('5,6')).toEqual(true);
@@ -651,7 +676,7 @@ describe('GameBoard', () => {
             expect(gameBoard.checkCoordinate('6,5')).toEqual(false);
         });
         test('Check that checkCoordinatesForPlacement will return false if there is an assigned ship in the way', () => {
-            const frig1 = new Ship(2);
+            const frig1 = new Ship('Destroyer', 2);
             const direction = 'up';
             gameBoard.placeShip('5,6', frig1, direction);
             expect(
@@ -663,7 +688,7 @@ describe('GameBoard', () => {
             ).toEqual(false);
         });
         test('Check that checkCoordinatesForPlacement will return true if there is NO assigned ship in the way', () => {
-            const frig1 = new Ship(2);
+            const frig1 = new Ship('Destroyer', 2);
             const direction = 'up';
             expect(
                 gameBoard.checkCoordinatesForPlacement(
@@ -674,32 +699,28 @@ describe('GameBoard', () => {
             ).toEqual(true);
         });
         test('Check that checkAndPlace places a ship when there is a free spot', () => {
-            const frig1 = new Ship(2);
+            const frig1 = new Ship('Destroyer', 2);
             const direction = 'up';
-            expect(
-                gameBoard.checkAndPlace(
-                    '5,5',
-                    frig1,
-                    direction,
-                ),
-            ).toEqual(true);
+            expect(gameBoard.checkAndPlace('5,5', frig1, direction)).toEqual(
+                true,
+            );
         });
         test('Check that checkAndPlace throws an error if there is already a ship in position', () => {
-            const frig1 = new Ship(2);
-            const frig2 = new Ship(2);
+            const frig1 = new Ship('Destroyer', 2);
+            const frig2 = new Ship('Destroyer', 2);
             const direction = 'up';
             gameBoard.placeShip('4,5', frig1, 'right');
             expect(() => {
-              gameBoard.checkAndPlace('5,5', frig2, direction);
+                gameBoard.checkAndPlace('5,5', frig2, direction);
             }).toThrowError('Sorry the location already has a ship assigned');
-          });
+        });
     });
     // Ship assignment tests
     describe('Test that an assigned ship can be sunk', () => {
         test.each([['4,1', '4,2', '4,3', '4,4']])(
             'Test that the game board has a sunk ship assigned to a location verifying change in ship state',
             (node1, node2, node3, node4) => {
-                const battleShip = new Ship(4);
+                const battleShip = new Ship('Battleship', 4);
                 const direction = 'up';
                 const targetNode1 = gameBoard.gridNodes.find(
                     (node) => node.id === node1,
@@ -710,6 +731,7 @@ describe('GameBoard', () => {
                     id: node1,
                     position: [4, 1],
                     ship: {
+                        type: 'Battleship',
                         size: 4,
                         health: 3,
                         isSunk: false,
@@ -724,6 +746,7 @@ describe('GameBoard', () => {
                     id: node2,
                     position: [4, 2],
                     ship: {
+                        type: 'Battleship',
                         size: 4,
                         health: 2,
                         isSunk: false,
@@ -738,6 +761,7 @@ describe('GameBoard', () => {
                     id: node3,
                     position: [4, 3],
                     ship: {
+                        type: 'Battleship',
                         size: 4,
                         health: 1,
                         isSunk: false,
@@ -752,6 +776,7 @@ describe('GameBoard', () => {
                     id: node4,
                     position: [4, 4],
                     ship: {
+                        type: 'Battleship',
                         size: 4,
                         health: 0,
                         isSunk: true,

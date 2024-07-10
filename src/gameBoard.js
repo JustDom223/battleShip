@@ -64,7 +64,7 @@ export class GameBoard {
         if (dx === 1 && dy === 0) return 'right';
         return null; // or throw an error if the direction is invalid
     }
-    
+
     placeShip(sourceId, ship, direction = 'up') {
         // check if the ship is fully placed
         if (ship.coordinates.size >= ship.size) return true;
@@ -99,9 +99,9 @@ export class GameBoard {
         else return false;
     }
 
-// Use checkCoordinates that returns as true if there is a ship
-// and return false for Placement. 
-//I have added an extra note as this might cause confusion 
+    // Use checkCoordinates that returns as true if there is a ship
+    // and return false for Placement.
+    //I have added an extra note as this might cause confusion
     checkCoordinatesForPlacement(sourceId, shipSize, direction) {
         let tempSet = new Set();
         let targetsEdges = this.edges.get(sourceId);
@@ -123,16 +123,19 @@ export class GameBoard {
         return true;
     }
 
-    checkAndPlace(sourceId, ship, direction = 'up'){
-        let locationsChecked = this.checkCoordinatesForPlacement(sourceId, ship.size, direction)
-        if (locationsChecked){
-            this.placeShip(sourceId,ship,direction)
-            return true
-        }else{
-            throw new Error('Sorry the location already has a ship assigned')
+    checkAndPlace(sourceId, ship, direction = 'up') {
+        let locationsChecked = this.checkCoordinatesForPlacement(
+            sourceId,
+            ship.size,
+            direction,
+        );
+        if (locationsChecked) {
+            this.placeShip(sourceId, ship, direction);
+            return true;
+        } else {
+            throw new Error('Sorry the location already has a ship assigned');
         }
     }
-    
 
     getOppositeDirection(direction) {
         const opposites = {

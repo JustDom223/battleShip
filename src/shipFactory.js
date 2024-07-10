@@ -1,6 +1,7 @@
 export class Ship {
     //Create ship with size and health
-    constructor(size) {
+    constructor(type, size) {
+        this.type = type;
         this.size = size;
         this.health = size;
         this.isSunk = false;
