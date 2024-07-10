@@ -1,5 +1,5 @@
 // Import the Ship class
-import { Ship } from './shipFactory.js';
+import { Ship } from './Ship.js';
 
 export class Player {
     constructor(name) {

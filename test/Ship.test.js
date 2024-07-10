@@ -1,5 +1,5 @@
 import { test } from '@jest/globals';
-import { Ship } from '../src/shipFactory';
+import { Ship } from '../src/Ship';
 
 test('Test hit to reduce health from 5 => 4', () => {
     const ship5Health = new Ship('Carrier', 5);

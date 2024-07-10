@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
 import { GameBoard } from '../src/gameBoard';
-import { Ship } from '../src/shipFactory';
+import { Ship } from '../src/Ship';
 
 const connectionsNested = [
     [0, 1],
@@ -821,5 +821,11 @@ describe('GameBoard', () => {
                 ]);
             },
         );
+    });
+    //Board position targeting and end to end test for the steps involved in sinking a ship
+    describe('Node Targeting', () => {
+        test('A nodes default "Targeted" should be false', () => {
+            expect(gameBoard.gridNodes[1].targeted).toBe(false);
+        });
     });
 });

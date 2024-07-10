@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from '@jest/globals';
-import { Player } from '../src/playerFactory';
+import { Player } from '../src/Player';
 
 describe('Player', () => {
     let player1;
