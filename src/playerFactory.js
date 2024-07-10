@@ -5,6 +5,8 @@ export class Player {
     constructor(name) {
         this.name = name;
         this.ships = this.createShips();
+        this.playerHealth = this.remainingHealth();
+        this.shipCount = this.remainingShips();
     }
 
     createShips() {
@@ -15,5 +17,23 @@ export class Player {
             new Ship('Submarine', 3),
             new Ship('Destroyer', 2),
         ];
+    }
+
+    remainingHealth() {
+        let currentHealth = 0;
+        this.ships.forEach((ship) => {
+            currentHealth += ship.health;
+        });
+        return (this.playerHealth = currentHealth);
+    }
+
+    remainingShips() {
+        let shipCount = 0;
+        this.ships.forEach((ship) => {
+            if (!ship.isSunk) {
+                shipCount += 1;
+            }
+        });
+        return (this.shipCount = shipCount);
     }
 }
