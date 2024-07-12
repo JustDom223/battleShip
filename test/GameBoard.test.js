@@ -1,6 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 import { GameBoard } from '../src/GameBoard';
 import { Ship } from '../src/Ship';
+import { Player } from '../src/Player';
 
 const connectionsNested = [
     [0, 1],
@@ -824,8 +825,21 @@ describe('GameBoard', () => {
     });
     //Board position targeting and end to end test for the steps involved in sinking a ship
     describe('Node Targeting', () => {
+        let player1;
+        beforeEach(() => {
+            player1 = new Player('Dom');
+            gameBoard.checkAndPlace('0,1', player1.ships[0]);
+        });
         test('A nodes default "Targeted" should be false', () => {
             expect(gameBoard.gridNodes[1].targeted).toBe(false);
+        });
+        test('A nodes that has been "Targeted" should be true', () => {
+            gameBoard.attack('0,1');
+            expect(gameBoard.gridNodes[1].targeted).toBe(true);
+        });
+        test('If a node contains a ship then the players ship will be hit', () => {
+            gameBoard.attack('0,1');
+            expect(player1.ships[0].health).toBe(4);
         });
     });
 });

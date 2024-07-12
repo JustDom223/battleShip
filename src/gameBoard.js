@@ -64,7 +64,6 @@ export class GameBoard {
         if (dx === 1 && dy === 0) return 'right';
         return null; // or throw an error if the direction is invalid
     }
-
     placeShip(sourceId, ship, direction = 'up') {
         // check if the ship is fully placed
         if (ship.coordinates.size >= ship.size) return true;
@@ -98,7 +97,6 @@ export class GameBoard {
         if (targetNode.ship) return true;
         else return false;
     }
-
     // Use checkCoordinates that returns as true if there is a ship
     // and return false for Placement.
     //I have added an extra note as this might cause confusion
@@ -122,7 +120,6 @@ export class GameBoard {
         }
         return true;
     }
-
     checkAndPlace(sourceId, ship, direction = 'up') {
         let locationsChecked = this.checkCoordinatesForPlacement(
             sourceId,
@@ -136,7 +133,6 @@ export class GameBoard {
             throw new Error('Sorry the location already has a ship assigned');
         }
     }
-
     getOppositeDirection(direction) {
         const opposites = {
             up: 'down',
@@ -146,30 +142,40 @@ export class GameBoard {
         };
         return opposites[direction];
     }
-    //GPT Created these when i asked for an example for something. Saving them if they need to be implemented
-    //I can already see an issue where it is changing ship.isSunk for no reason
-
-    targetNode(id) {
-        const targetNode = this.gridNodes.find((node) => node.id === id);
-        if (targetNode && !targetNode.targeted) {
-            targetNode.targeted = true;
-            return true;
+    attack(targetId) {
+        const node = this.gridNodes.find((node) => node.id === targetId);
+        if (node && !node.targeted) {
+            node.targeted = true;
+            if (node.ship) {
+                node.ship.hit();
+                return { hit: true, shipSunk: node.ship.isSunk };
+            } else {
+                return { hit: false };
+            }
+        } else {
+            throw new Error('This node has already been targeted.');
         }
-        return false;
     }
-
-    // attack(targetId) {
-    //     const node = this.gridNodes.find(node => node.id === targetId);
-    //     if (node && !node.targeted) {
-    //         node.targeted = true;
-    //         if (node.ship) {
-    //             node.ship.hit();
-    //             return { hit: true, shipSunk: node.ship.isSunk };
-    //         } else {
-    //             return { hit: false };
-    //         }
-    //     } else {
-    //         throw new Error('This node has already been targeted.');
-    //     }
-    // }
+    renderBoard() {
+        let board = [];
+        for (let i = 0; i < 10; i++) {
+            let row = [];
+            for (let j = 0; j < 10; j++) {
+                const node = this.gridNodes.find(
+                    (node) => node.id === `${i},${j}`,
+                );
+                if (node.targeted) {
+                    if (node.ship) {
+                        row.push('H'); // Hit
+                    } else {
+                        row.push('M'); // Miss
+                    }
+                } else {
+                    row.push('O'); // Untargeted
+                }
+            }
+            board.push(row);
+        }
+        console.log(board.map((row) => row.join(' ')).join('\n'));
+    }
 }
