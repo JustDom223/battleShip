@@ -149,14 +149,14 @@ export class GameBoard {
     //GPT Created these when i asked for an example for something. Saving them if they need to be implemented
     //I can already see an issue where it is changing ship.isSunk for no reason
 
-    // targetNode(id) {
-    //     const targetNode = this.gridNodes.find((node) => node.id === id);
-    //     if (targetNode && !targetNode.targeted) {
-    //         targetNode.targeted = true;
-    //         return true;
-    //     }
-    //     return false;
-    // }
+    targetNode(id) {
+        const targetNode = this.gridNodes.find((node) => node.id === id);
+        if (targetNode && !targetNode.targeted) {
+            targetNode.targeted = true;
+            return true;
+        }
+        return false;
+    }
 
     // attack(targetId) {
     //     const node = this.gridNodes.find(node => node.id === targetId);

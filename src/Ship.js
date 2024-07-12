@@ -20,4 +20,7 @@ export class Ship {
             this.coordinates.add(coordinate);
         }
     }
+    test() {
+        //I dont get it!
+    }
 }

@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { GameBoard } from '../src/gameBoard';
+import { GameBoard } from '../src/GameBoard';
 import { Ship } from '../src/Ship';
 
 const connectionsNested = [

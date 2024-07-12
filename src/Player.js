@@ -36,4 +36,5 @@ export class Player {
         });
         return (this.shipCount = shipCount);
     }
+    this() {}
 }
