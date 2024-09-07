@@ -184,7 +184,7 @@ export class GameBoard {
                 return { hit: false };
             }
         } else {
-            throw new Error('This node has already been targeted.');
+            throw new Error('This node has already been targeted!');
         }
     }
 
