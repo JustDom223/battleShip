@@ -189,9 +189,10 @@ export class GameBoard {
     }
 
     attackRandom() {
-        const randomCoordinate = this.getRandomCoordinates;
+        let randomCoordinate = this.getRandomCoordinates();
         console.log(randomCoordinate);
         this.attack(randomCoordinate);
+        return randomCoordinate
     }
 
     renderBoard(showShips = false) {
@@ -204,7 +205,7 @@ export class GameBoard {
                 );
                 if (node.targeted) {
                     if (node.ship) {
-                        row.push('H'); // Hit
+                        row.push('H'); // Hitt
                     } else {
                         row.push('M'); // Miss
                     }

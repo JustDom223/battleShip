@@ -11,11 +11,3 @@ const board2 = new GameBoard();
 board1.createGridNodes(10, 10);
 board2.createGridNodes(10, 10);
 
-// function placeAllShips(player,board) {
-//     player.ships.forEach(ship => {
-//         board.placeShipRandomly(ship)
-//     });
-// }
-// placeAllShips(player1, board1)
-
-// board1.renderBoard.
