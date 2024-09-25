@@ -29,7 +29,7 @@ describe('Game loop', () => {
             expect(player1.ships[4].checkIfAssigned()).toBe(true);
         });
         test('Check that attackRandom picks a random location', () => {
-            gameBoard.attackRandom();
+                gameBoard.attackRandom();
 
             expect(gameBoard.renderBoard(true)).toBe(true);
         });

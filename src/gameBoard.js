@@ -109,6 +109,7 @@ export class GameBoard {
         while (!placed) {
             try {
                 const randomCoordinate = this.getRandomCoordinates();
+                console.log(randomCoordinate)
                 const randomDirection =
                     directions[getRandomInt(0, directions.length - 1)];
                 if (
@@ -117,7 +118,7 @@ export class GameBoard {
                     placed = true;
                 }
             } catch (error) {
-                console.error('Error placing ship:', error);
+                console.error(`Error placing ship:`, error);
                 // Handle the error or simply continue to the next iteration
             }
         }
@@ -189,11 +190,18 @@ export class GameBoard {
     }
 
     attackRandom() {
-        let randomCoordinate = this.getRandomCoordinates();
-        console.log(randomCoordinate);
-        this.attack(randomCoordinate);
-        return randomCoordinate
+        let randomCoordinate;
+        try {
+            randomCoordinate = this.getRandomCoordinates();
+            console.log(randomCoordinate);
+            this.attack(randomCoordinate);
+        } catch (error) {
+                // console.log('Retrying attack...');
+                return this.attackRandom(); // Retry the attack      
+        }
+        return randomCoordinate;
     }
+    
 
     renderBoard(showShips = false) {
         let board = [];
@@ -205,7 +213,7 @@ export class GameBoard {
                 );
                 if (node.targeted) {
                     if (node.ship) {
-                        row.push('H'); // Hitt
+                        row.push('H'); // Hit
                     } else {
                         row.push('M'); // Miss
                     }
